@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vista de la calculadora (JavaFX FXML)
+
+  - Se usa un BorderPane con un VBox centrado para apilar el display y la rejilla de botones.
+  - El controlador asociado es com.example.calculator.controller.CalculatorController, que maneja los eventos onAction.
+  - Los botones llaman a métodos del controlador (p. ej. #onDigit, #onAdd) para mantener la separación MVC.
+  - prefWidth/prefHeight fijan un tamaño inicial cómodo; la App también crea el Scene con tamaño explícito.
+-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.calculator.controller.CalculatorController"
+            prefWidth="300" prefHeight="380">
+  <center>
+    <!-- Contenedor vertical: primero display, luego rejilla de botones -->
+    <VBox spacing="8" alignment="CENTER" BorderPane.alignment="CENTER">
+      <padding>
+        <Insets topRightBottomLeft="12" />
+      </padding>
+      <!-- Campo de salida sólo lectura vinculado a CalculatorController.display -->
+      <TextField fx:id="display" editable="false" text="0" style="-fx-font-size: 22px;"/>
+      <!-- Rejilla 4xN: números y operadores. Cada botón lanza onAction en el controlador. -->
+      <GridPane hgap="6" vgap="6" prefWidth="280">
+        <columnConstraints>
+          <ColumnConstraints percentWidth="25"/>
+          <ColumnConstraints percentWidth="25"/>
+          <ColumnConstraints percentWidth="25"/>
+          <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <children>
+          <!-- Fila 7 8 9 / -->
+          <Button text="7" onAction="#onDigit" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+          <Button text="8" onAction="#onDigit" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+          <Button text="9" onAction="#onDigit" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+          <Button text="/" onAction="#onDivide" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+          <!-- Fila 4 5 6 * -->
+          <Button text="4" onAction="#onDigit" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+          <Button text="5" onAction="#onDigit" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+          <Button text="6" onAction="#onDigit" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+          <Button text="*" onAction="#onMultiply" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+          <!-- Fila 1 2 3 - -->
+          <Button text="1" onAction="#onDigit" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+          <Button text="2" onAction="#onDigit" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+          <Button text="3" onAction="#onDigit" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+          <Button text="-" onAction="#onSubtract" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+          <!-- Fila 0 . +  (0 ocupa dos columnas) -->
+          <Button text="0" onAction="#onDigit" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" maxWidth="Infinity"/>
+          <Button text="." onAction="#onDigit" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+          <Button text="+" onAction="#onAdd" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+          <!-- Fila C =  (ambos ocupan dos columnas para expandir) -->
+          <Button text="C" onAction="#onClear" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2" maxWidth="Infinity"/>
+          <Button text="=" onAction="#onEquals" GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2" maxWidth="Infinity"/>
+        </children>
+      </GridPane>
+    </VBox>
+  </center>
+</BorderPane>
+
+
